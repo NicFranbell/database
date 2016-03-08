@@ -1,0 +1,11 @@
+
+{% if latest_member_list %}
+    <ul>
+    {% for member in latest_member_list %}
+        <li>{{ member }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No members yet.</p>
+{% endif %}
+
