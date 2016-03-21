@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	{%  include "nwbb_members/head.html" %}
+	</head>
+	<body>
+		<div class="container">
+		<header>
+			<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
+		</header>	    
+		 <h2 >List of Current Members</h2>
+			{% if latest_member_list %}
+		    	<ul class="list-group">
+		    		{% for member in latest_member_list %}
+		        		<li class="list-group-item">{{ member }}</li>
+		    		{% endfor %}
+		   		 </ul>
+			{% else %}
+		    	<p>No members yet.</p>
+			{% endif %}
+			<hr />
+			<div class="row">
+				<a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
+				<a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button">Logout</a>
+			</div>
+		</div> <!-- /container -->
+	 </body>
+</html>

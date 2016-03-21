@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Member(models.Model):
-    user = models.OneToOneField(User, related_name="member")
+    user = models.OneToOneField(User, related_name="profile")
     address_one = models.CharField(max_length=50, blank=True)
     address_two = models.CharField(max_length=50, blank=True)
     town = models.CharField(max_length=20, blank=True)
@@ -30,9 +30,8 @@ class RoleType(models.Model):
 class MemberRole(models.Model):
     member = models.ForeignKey(User, related_name="member_role")
     role_type = models.ForeignKey(RoleType)
-    date_started_role = models.DateTimeField(auto_now_add=True, blank=True)
     
     def __unicode__(self):
-        return self.member.get_full_name( )+ " became a " + self.role_type.name + " on " + unicode(self.date_started_role)
+        return self.member.get_full_name( )+ " became a " + self.role_type.name 
     
     
