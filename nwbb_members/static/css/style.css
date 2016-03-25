@@ -1,0 +1,12 @@
+li a {
+    color: green;
+}
+body {
+    background: white;
+}
+header {
+    background-color:white;
+    color:red;
+    text-align:center;
+    padding:5px;	 
+}
