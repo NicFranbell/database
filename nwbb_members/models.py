@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Member(models.Model):
     user = models.OneToOneField(User, related_name="profile")
+    id_number = models.CharField(max_length=50, blank=False)
     address_one = models.CharField(max_length=50, blank=True)
     address_two = models.CharField(max_length=50, blank=True)
     town = models.CharField(max_length=20, blank=True)
@@ -32,6 +33,6 @@ class MemberRole(models.Model):
     role_type = models.ForeignKey(RoleType)
     
     def __unicode__(self):
-        return self.member.get_full_name( )+ " became a " + self.role_type.name 
+        return self.role_type.name 
     
     

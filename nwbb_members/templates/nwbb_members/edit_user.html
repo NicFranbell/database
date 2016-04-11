@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%  include "nwbb_members/head.html" %}
+</head>
+<body>
+<div class="container">
+	<header>
+		<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
+	</header>
+        <h1>{{ member.get_full_name }}</h1>
+        <p>Edit {{ member.first_name }}'s Details</p>
+  
+    <div class="row">
+        <div class="span4">
+            <div class="well">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>First Name</th>
+                        <td>{{ member.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td>{{ member.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>User Name</th>
+                        <td>{{ member.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email Address</th>
+                        <td>{{ member.email }}</td>
+                    </tr>
+                </table>
+                <hr>
+                {% if request.user.is_staff %}
+                    <div class="btn-group">
+                        <a class="btn" href="{% url "members:view_member_details" member.id %}">View User</a>
+                        <a class="btn" href="{% url "admin:auth_user_change" member.id %}">Edit User</a>
+                        <a class="btn btn-danger" href="{% url "admin:auth_user_delete" member.id %}"
+                           id="tooltip" title="This Action Cannot be Reverted!">Delete User</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr />
+		<div class="center-block" style="max-width:400px">
+			<a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
+			<a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button">Logout</a>
+		</div>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

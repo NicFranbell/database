@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	{%  include "nwbb_members/head.html" %}
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
+			</header>	    
+			<hr />
+			<h1>Add New Member</h1>
+	        <p>Enter the Member's Details</p>
+	        <div class="row">
+	            <div class="span8">
+	                <form class="form-horizontal well" method="POST">
+	                    {% csrf_token %}
+	                    {{ form }}
+	                    <hr>
+	                    <div class="form-actions">
+	                        <button class="btn btn-primary" type="submit">Save User</button>
+	                        <a class="btn" href="{% url 'members:index' %}">Cancel</a>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	        <div class="center-block" style="max-width:400px">
+				<a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
+				<a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button">Logout</a>
+			</div>
+	    </div> <!-- /container -->
+	</body>
+</html>

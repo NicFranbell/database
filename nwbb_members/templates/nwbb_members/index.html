@@ -19,7 +19,10 @@
 		         the path to the logout URL.
 		    -->
 		    <div class="row">
-			     <a href="{% url 'members:view_members' %}" class="btn btn-lg btn-success" role="button" >View Members</a>
+		    	 <a href="{% url "members:view_member_details" request.user.id %}" class="btn btn-lg btn-default" role="button" >View My Details</a>
+			     <a href="{% url "members:edit_member_details" request.user.id %}" class="btn btn-lg btn-default" role="button" >Edit My Details</a>
+			     <a href="{% url 'members:view_members' %}" class="btn btn-lg btn-default" role="button" >View Members</a>			     
+			     <a href="{% url 'members:add_user' %}" class="btn btn-lg btn-default" role="button" >Add User</a>
 			     <a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button" >Logout</a>
 		     </div>
 	     </div>
