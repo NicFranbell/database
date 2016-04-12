@@ -9,17 +9,33 @@
 			<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
 		</header>	    
 		 <h2 >List of Current Members</h2>
-			{% if latest_member_list %}
-		    	<ul class="list-group">
-		    		{% for member in latest_member_list %}
-		        		<li class="list-group-item">{{ member }}</li>
-		    		{% endfor %}
-		   		 </ul>
-			{% else %}
-		    	<p>No members yet.</p>
-			{% endif %}
+			
+			 <div class="row">
+        		<div class="span4">
+		            <div class="well">
+		                <table class="table table-bordered">
+		                    <tr>
+		                        <th>Name</th>
+		                     	<th>ID Number</th>
+		                        <th>Email</th>
+		                         <th></th>                        
+		                    </tr>
+		                    {% if latest_member_list %}
+		                    	{% for member in latest_member_list %}
+		                    	<tr>
+									<td><a href="{% url "members:view_member_details" member.user.id %}">{{ member }}</a></td>	                        
+		                            <td>{{ member.id_number }}</td>  
+		                            <td>{{ member.user.email }}</td>              
+		                        	<td><a href="{% url "members:edit_member_details" member.user.id %}" class="btn btn-default" role="button">Edit Details</a></td>
+		                   		 </tr>
+		                    	{% endfor %}
+		                    {% endif %}
+		                </table>
+		            </div>
+		        </div>		
 			<hr />
-			<div class="row">
+        		<hr />		    	
+			<div class="center-block" style="max-width:400px">
 				<a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
 				<a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button">Logout</a>
 			</div>
