@@ -3,6 +3,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
@@ -17,7 +18,17 @@ def index(request):
     
 @login_required
 def view_members(request):
-    return render(request, "nwbb_members/view_members.html", {'latest_member_list' : Member.objects.all()})
+    lookup = request.GET.get('lookup') if request.GET.get('lookup') else None
+    members = Member.objects.all()
+    if lookup:
+        name_parts = lookup.split(' ')
+        if len(name_parts) == 2:
+            members = members.filter(Q(user__first_name__istartswith=name_parts[0]) &
+                                       Q(user__last_name__istartswith=name_parts[1]))
+        elif len(name_parts) == 1:
+            members = members.filter(Q(user__first_name__istartswith=name_parts[0]) |
+                                      Q(user__last_name__istartswith=name_parts[0]))
+    return render(request, "nwbb_members/view_members.html", {'latest_member_list' : members})
 
 @login_required
 def view_member_details(request, user_id):
