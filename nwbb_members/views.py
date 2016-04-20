@@ -1,6 +1,6 @@
 
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, render_to_response
@@ -10,16 +10,19 @@ from django.core.urlresolvers import reverse
 from  .models import Member,MemberRole 
 from nwbb_members.forms import MemberForm, UserForm
 from database.tools import random_word
+from database.utility import can_view_member, can_add_member
 
 @login_required
 def index(request):
     return render(request, 'nwbb_members/index.html', {'username':request.user.username})
     
 @login_required
+@user_passes_test(can_view_member, "/members/access_denied", None)
 def view_members(request):
     return render(request, "nwbb_members/view_members.html", {'latest_member_list' : Member.objects.all()})
 
 @login_required
+@user_passes_test(can_view_member, "/members/access_denied", None)
 def view_member_details(request, user_id):
     member = get_object_or_404(User, pk=user_id)
     response_dict = {'member': member} 
@@ -27,9 +30,9 @@ def view_member_details(request, user_id):
     return render_to_response('nwbb_members/view_member_details.html', response_dict, context_instance=RequestContext(request))
 
 @login_required
+@user_passes_test(can_add_member,"/members/access_denied", None )
 def edit_member_details(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    #member = Member.objects.get(user=user)
     response_dict = {'member': user.profile}
     if request.method == 'POST':
         form = MemberForm(request.POST, instance=user.profile)
@@ -47,6 +50,7 @@ def edit_member_details(request, user_id):
                              context_instance=RequestContext(request))
     
 @login_required
+@user_passes_test(can_add_member, "/members/access_denied", None)
 def add_user(request):
     response_dict = {}
     if request.method == 'POST': 
@@ -57,7 +61,7 @@ def add_user(request):
             new_user.password = make_password(random_word(18))
             new_user.save()
             Member(user=new_user).save()
-            return HttpResponseRedirect(reverse("members:edit_user", kwargs={'user_id':new_user.id}))
+            return HttpResponseRedirect(reverse("members:edit_member_details", kwargs={'user_id':new_user.id}))
     else:
         form = UserForm()
         response_dict['form'] = form

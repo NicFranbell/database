@@ -13,8 +13,7 @@
 			<tbody>
 			    <tr><th width="120">Name</th><td>{{  member.first_name }} {{ member.last_name }}</td></tr>
 			    <tr><th>ID Number</th><td>{{  member.profile.id_number }}</td></tr>
-			    <tr>
-			        <th>Address</th>
+		    	<tr><th>Address</th>
 			        <td>		           
 		                {% if member.profile.address_one %}{{ member.profile.address_one }}<br />{% endif %}
 		                {% if member.profile.address_two %}{{ member.profile.address_two }}<br />{% endif %}
@@ -39,11 +38,13 @@
 			    		</td>			
 			    </tr>
 			    <tr><th>Role</th>
+			    	<td>
 			    	{% if member_role %}
 			    		{% for role_type in member_role %}
-		        			<td>{{ role_type }}</td>
+		        			{{ role_type }}<br/>
 		    			{% endfor %}
 		    		{% endif %}
+		    		</td>
 			</tbody>
 			</table>  
 			<div class="center-block" style="max-width:400px">

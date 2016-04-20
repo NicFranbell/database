@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	{%  include "nwbb_members/head.html" %}
+	</head>
+	<body>
+	    <div class="container">
+	    	<header>
+				<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
+			</header>	    
+			<hr />
+		   <p class="lead"><big>Access Denied </big></p>
+		   <p>You do not have access to this functionality.</p>
+		    <hr />
+	   
+		    <!-- 'url' template tag takes the name of the URL pattern
+		         as an argument and renders the URL path. Here it renders
+		         the path to the logout URL.
+		    -->
+		    <div class="row">
+				 <a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
+			     <a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button" >Logout</a>
+		     </div>
+	     </div>
+	</body>
+</html>
