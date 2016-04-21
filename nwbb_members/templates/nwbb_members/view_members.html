@@ -9,7 +9,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Add a New Member</h1>
+                <h1 class="page-header">Member List</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -17,7 +17,11 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Enter the Member's Details
+                        {% if request.GET.lookup %}
+                            Members matching {{ request.GET.lookup }}
+                        {% else %}
+                            All Members
+                        {% endif %}
                     </div>
                     <div class="panel-body">
                         <div class="row">
