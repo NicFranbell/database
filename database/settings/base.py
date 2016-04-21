@@ -2,6 +2,7 @@
 
 INSTALLED_APPS = [
     'nwbb_members',
+    'bootstrapform',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
