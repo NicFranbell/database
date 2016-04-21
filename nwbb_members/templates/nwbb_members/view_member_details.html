@@ -1,56 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    	{%  include "nwbb_members/head.html" %}
-	</head>
-	<body>
-		<header>
-			<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
-		</header>	    
-		<hr />
-   		<h1>Details for Member - {{ member.get_full_name }} - {{ member.username }}</h1>
-		<table class="table table-bordered">
-			<tbody>
-			    <tr><th width="120">Name</th><td>{{  member.first_name }} {{ member.last_name }}</td></tr>
-			    <tr><th>ID Number</th><td>{{  member.profile.id_number }}</td></tr>
-		    	<tr><th>Address</th>
-			        <td>		           
-		                {% if member.profile.address_one %}{{ member.profile.address_one }}<br />{% endif %}
-		                {% if member.profile.address_two %}{{ member.profile.address_two }}<br />{% endif %}
-			            {% if member.profile.town %}{{ member.profile.town }}<br />{% endif %}
-			            {% if member.profile.county %}{{ member.profile.county }}<br />{% endif %}
-			            {% if member.profile.post_code %}{{ member.profile.post_code }}<br />{% endif %}
-			        </td>
-			    </tr>
-			    <tr><th>Telephone</th>
-			        <td>
-			            {% if member.profile.home_tel %}<p><span class="label">Home</span> {{ member.profile.home_tel }}<br/></p>{% endif %}
-			            {% if member.profile.mobile_tel %}<span class="label label-info">Mobile</span> {{ member.profile.mobile_tel }}{% endif %}
-			        </td>
-			    </tr>
-			    <tr><th>Email</th>
-			    		<td>{{ member.email }}<br/>
-			    			{% if member.profile.email_shared %} 
-			    				This email is shared.
-			    			{% else %}
-			    				This email is not shared.
-			    			{% endif %}
-			    		</td>			
-			    </tr>
-			    <tr><th>Role</th>
-			    	<td>
-			    	{% if member_role %}
-			    		{% for role_type in member_role %}
-		        			{{ role_type }}<br/>
-		    			{% endfor %}
-		    		{% endif %}
-		    		</td>
-			</tbody>
-			</table>  
-			<div class="center-block" style="max-width:400px">
-				<a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
-				<a href="{% url "members:edit_member_details" member.id %}" class="btn btn-lg btn-default" role="button">Edit Details</a>
-				<a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button">Logout</a>
-			</div>"
-	</body>
+<head>
+    {% include "nwbb_members/head.html" %}
+</head>
+<body>
+<div id="wrapper">
+    {% include "nwbb_members/nav.html" %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{ member.get_full_name }} - {{ member.username }}</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th width="120">Name</th>
+                                        <td>{{ member.first_name }} {{ member.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ID Number</th>
+                                        <td>{{ member.profile.id_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>
+                                            {% if member.profile.address_one %}{{ member.profile.address_one }}
+                                                <br/>{% endif %}
+                                            {% if member.profile.address_two %}{{ member.profile.address_two }}
+                                                <br/>{% endif %}
+                                            {% if member.profile.town %}{{ member.profile.town }}<br/>{% endif %}
+                                            {% if member.profile.county %}{{ member.profile.county }}<br/>{% endif %}
+                                            {% if member.profile.post_code %}{{ member.profile.post_code }}
+                                                <br/>{% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Telephone</th>
+                                        <td>
+                                            {% if member.profile.home_tel %}
+                                                <p><span
+                                                        class="label label-info">Home</span> {{ member.profile.home_tel }}
+                                                </p>
+                                            {% endif %}
+                                            {% if member.profile.mobile_tel %}
+                                                <p><span
+                                                        class="label label-info">Mobile</span> {{ member.profile.mobile_tel }}
+                                                </p>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ member.email }}
+                                            <small>
+                                                {% if member.profile.email_shared %}
+                                                    (This email is shared)
+                                                {% else %}
+                                                    (This email is not shared)
+                                                {% endif %}
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Role</th>
+									    	<td>
+									    	{% if member_role %}
+									    		{% for role_type in member_role %}
+								        			{{ role_type }}<br/>
+								    			{% endfor %}
+								    		{% endif %}
+								    		</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

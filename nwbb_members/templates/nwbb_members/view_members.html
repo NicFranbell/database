@@ -1,44 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    	{%  include "nwbb_members/head.html" %}
-	</head>
-	<body>
-		<div class="container">
-		<header>
-			<a href="{% url 'members:index' %}"><img src="/static/logo.png" /></a>
-		</header>	    
-		 <h2 >List of Current Members</h2>
-			
-			 <div class="row">
-        		<div class="span4">
-		            <div class="well">
-		                <table class="table table-bordered">
-		                    <tr>
-		                        <th>Name</th>
-		                     	<th>ID Number</th>
-		                        <th>Email</th>
-		                         <th></th>                        
-		                    </tr>
-		                    {% if latest_member_list %}
-		                    	{% for member in latest_member_list %}
-		                    	<tr>
-									<td><a href="{% url "members:view_member_details" member.user.id %}">{{ member }}</a></td>	                        
-		                            <td>{{ member.id_number }}</td>  
-		                            <td>{{ member.user.email }}</td>              
-		                        	<td><a href="{% url "members:edit_member_details" member.user.id %}" class="btn btn-default" role="button">Edit Details</a></td>
-		                   		 </tr>
-		                    	{% endfor %}
-		                    {% endif %}
-		                </table>
-		            </div>
-		        </div>		
-			<hr />
-        		<hr />		    	
-			<div class="center-block" style="max-width:400px">
-				<a href="{% url 'members:index' %}" class="btn btn-lg btn-default" role="button" >Home</a>
-				<a href="{% url 'logout' %}" class="btn btn-lg btn-primary" role="button">Logout</a>
-			</div>
-		</div> <!-- /container -->
-	 </body>
+<head>
+    {% include "nwbb_members/head.html" %}
+</head>
+<body>
+<div id="wrapper">
+    {% include "nwbb_members/nav.html" %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Member List</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% if request.GET.lookup %}
+                            Members matching {{ request.GET.lookup }}
+                        {% else %}
+                            All Members
+                        {% endif %}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table table-bordered" id="members-list">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>ID Number</th>
+                                        <th>Email</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if latest_member_list %}
+                                        {% for member in latest_member_list %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{% url "members:view_member_details" member.user.id %}">{{ member }}</a>
+                                                </td>
+                                                <td>{{ member.id_number }}</td>
+                                                <td>{{ member.user.email }}</td>
+                                                <td><a href="{% url "members:edit_member_details" member.user.id %}"
+                                                       class="btn btn-default" role="button">Edit Details</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+<script>
+    $(document).ready(function () {
+        $('#members-list').DataTable({
+            "bFilter": false
+        });
+    });
+</script>
+</body>
 </html>
