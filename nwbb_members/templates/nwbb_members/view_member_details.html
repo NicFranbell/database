@@ -1,3 +1,4 @@
+{% load postcodes %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,19 +30,35 @@
                                         <th>ID Number</th>
                                         <td>{{ member.profile.id_number }}</td>
                                     </tr>
-                                    <tr>
-                                        <th>Address</th>
-                                        <td>
-                                            {% if member.profile.address_one %}{{ member.profile.address_one }}
-                                                <br/>{% endif %}
-                                            {% if member.profile.address_two %}{{ member.profile.address_two }}
-                                                <br/>{% endif %}
-                                            {% if member.profile.town %}{{ member.profile.town }}<br/>{% endif %}
-                                            {% if member.profile.county %}{{ member.profile.county }}<br/>{% endif %}
-                                            {% if member.profile.post_code %}{{ member.profile.post_code }}
-                                                <br/>{% endif %}
-                                        </td>
-                                    </tr>
+                                    	{% if can_view_all %}
+                                    	<tr>
+	                                        <th>Address</th>
+	                                        <td>
+	                                            {% if member.profile.address_one %}{{ member.profile.address_one }}
+	                                                <br/>{% endif %}
+	                                            {% if member.profile.address_two %}{{ member.profile.address_two }}
+	                                                <br/>{% endif %}
+	                                            {% if member.profile.town %}{{ member.profile.town }}<br/>{% endif %}
+	                                            {% if member.profile.county %}{{ member.profile.county }}<br/>{% endif %}
+	                                            {% if member.profile.post_code %}{{ member.profile.post_code }}
+	                                                <br/>{% endif %}
+	                                        </td>
+	                                     </tr>
+                                        {% elif can_view_partial_postcode %}
+                                        <tr>
+                                        	<th>Partial Postcode</th>
+                                        	<td>
+                                        	{% if member.profile.post_code %}{{ member.profile.post_code|partial }}<br/>{% endif %}
+	                                        </td>
+	                                    </tr>
+                                        {% elif can_view_full_postcode %}
+                                        <tr>
+                                        	<th>Postcode</th>
+                                        	<td>
+                                        	{% if member.profile.post_code %}{{ member.profile.post_code }}<br/>{% endif %}
+	                                        </td>
+                                        {% endif %}
+                                    	</tr>
                                     <tr>
                                         <th>Telephone</th>
                                         <td>
@@ -69,15 +86,37 @@
                                             </small>
                                         </td>
                                     </tr>
+                                     {% if can_view_all %}
+								    <tr>
+								        <th>Driving License No</th>
+                                        	<td>{{ member.profile.driving_license_number }}</td>
+								    </tr>
+								    <tr>
+								        <th>Driving License Expiry</th>
+                                        	<td>{{ member.profile.driver_license_expiry_date }}</td>
+								    </tr>
+								    {% endif %}
+								    {% if can_view_all or can_view_comments %}
+								    <tr>
+								        <th>Comments</th>
+                                        	<td>{{ member.profile.comments }}</td>
+								    </tr>
+								    {% endif %}
+                                    {% if can_view_all or can_view_bike_reg %}
+								    <tr>
+								        <th>Bike Registration</th>
+                                        	<td>{{ member.profile.bike_registration }}</td>
+								    </tr>
+								    {% endif %}
                                     <tr>
-                                        <th>Role</th>
+                                        <th>Role(s)</th>
 									    	<td>
-									    	{% if member_role %}
-									    		{% for role_type in member_role %}
-								        			{{ role_type }}<br/>
-								    			{% endfor %}
-								    		{% endif %}
+									    	{% for role in member.profile.roles.all %}
+								        		{{ role }}<br/>
+								    		{% endfor %}
 								    		</td>
+								    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
