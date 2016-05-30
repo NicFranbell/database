@@ -33,6 +33,8 @@
                                         <th>ID Number</th>
                                         <th>Email</th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,6 +48,10 @@
                                                 <td>{{ member.user.email }}</td>
                                                 <td><a href="{% url "members:edit_member_details" member.user.id %}"
                                                        class="btn btn-default" role="button">Edit Details</a></td>
+                                                <td><a href="{% url "members:add_driving_offences" member.user.id %}"
+                                                       class="btn btn-default" role="button">Add Driving Offence(s)</a></td>
+                                                <td><a href="{% url "members:add_training" member.user.id %}"
+                                                       class="btn btn-default" role="button">Add Training/Qualifications</a></td>
                                             </tr>
                                         {% endfor %}
                                     {% endif %}

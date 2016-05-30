@@ -116,7 +116,22 @@
 								    		{% endfor %}
 								    		</td>
 								    </tr>
-
+									<tr>
+                                        <th>Driving Offence(s)</th>
+									    	<td>
+									    	{% for member_offence in driving_offences %}
+								        		{{ member_offence }}<br/>
+								    		{% endfor %}
+								    		</td>
+								    </tr>
+								    <tr>
+                                        <th>Training and Qualifications</th>
+									    	<td>
+									    	{% for member_training in training %}
+								        		{{ member_training }}<br/>
+								    		{% endfor %}
+								    		</td>
+								    </tr>
                                     </tbody>
                                 </table>
                             </div>

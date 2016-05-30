@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^edit_member_details/(?P<user_id>\d+)/$', views.edit_member_details, name='edit_member_details'),
     url(r'^view_member_details/(?P<user_id>\d+)/$', views.view_member_details, name='view_member_details'),
     url(r'^edit_user/(?P<user_id>\d+)/$', views.edit_user, name='edit_user'),
-     url(r'^access_denied/', TemplateView.as_view(template_name="nwbb_members/access_denied.html")),
+    url(r'^access_denied/', TemplateView.as_view(template_name="nwbb_members/access_denied.html")),
     url(r'^$', views.index, name='index'),
+    url(r'^add_driving_offences/(?P<user_id>\d+)/$', views.add_driving_offences, name='add_driving_offences'),
+    url(r'^add_training/(?P<user_id>\d+)/$', views.add_training, name='add_training'),
 ]
